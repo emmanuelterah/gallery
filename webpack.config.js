@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'blake.js',
+    filename: 'emmanuel.js',
   },
   target: 'node',
   externals: [nodeExternals()],
