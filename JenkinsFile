@@ -1,0 +1,29 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Deploy to Render') {
+      steps {
+        script {
+          // Trigger a deployment using the Render deploy hook URL
+          sh "node server"
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo 'Build and deployment successful!'
+    }
+    failure {
+      echo 'Build failed!'
+    }
+  }
+}
