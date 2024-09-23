@@ -48,17 +48,19 @@
         <hr>
         <br>
         
-          <div class="row">
-            <% images.forEach(function(image){ %>
-
+        <div class="row">
+          <% if (images && images.length > 0) { %> <!-- Check if images array is defined and not empty -->
+            <% images.forEach(function(image) { %>
               <div class="column">
-
-                <a href="/image/<%= image._id %>"> <img src="<%= image.path %>" class="responsive-img" alt="<%= image.name %>"> </a>
+                <a href="/image/<%= image._id %>">
+                  <img src="<%= image.path %>" class="responsive-img" alt="<%= image.name %>">
+                </a>
               </div>
-            <% }); %>  
-          </div>
-            
-              
+            <% }); %>
+          <% } else { %> 
+            <p>No images available.</p> <!-- Fallback when there are no images -->
+          <% } %>
+        </div>
             
         <!-- <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img" alt=""> -->
     </div>
