@@ -130,21 +130,19 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Pipeline completed.'
-        }
         success {
             script {
                 echo 'Pipeline successful. Sending Slack notification...'
                 sh """
-                curl -X POST -H 'Content-type: application/json' --data '{
+                curl -X POST -H 'Content-type: application/json' \
+                -H 'Authorization: Bearer xoxb-7769210273923-7784391947601-MbuFtkmH71jAnl7PYpJ3IkXS' \
+                --data '{
+                    "channel": "#emmanuel_ip1",
                     "text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${BUILD_URL}"
-                }' ${SLACK_WEBHOOK_URL}
+                }' https://slack.com/api/chat.postMessage
                 """
             }
         }
-        failure {
-            echo 'Pipeline failed.'
-        }
     }
+
 }
