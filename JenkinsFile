@@ -128,27 +128,39 @@ pipeline {
         }
     }
 
+    // post {
+    //     success {
+    //         script {
+    //             echo 'Pipeline successful. Sending Slack notification...'
+    //             sh """
+    //             curl -X POST -H 'Content-Type: application/json' \
+    //             --data '{"text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${env.BUILD_URL}"}' \
+    //             ${SLACK_WEBHOOK_URL}
+    //             """
+    //         }
+    //     }
+    //     failure {
+    //         script {
+    //             echo 'Pipeline failed. Sending Slack notification...'
+    //             sh """
+    //             curl -X POST -H 'Content-Type: application/json' \
+    //             --data '{"text": "Failed deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. Check the build details: ${env.BUILD_URL}"}' \
+    //             ${SLACK_WEBHOOK_URL}
+    //             """
+    //         }
+    //     }
+    // }
     post {
         success {
             script {
-                echo 'Pipeline successful. Sending Slack notification...'
-                sh """
-                curl -X POST -H 'Content-Type: application/json' \
-                --data '{"text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${env.BUILD_URL}"}' \
-                ${SLACK_WEBHOOK_URL}
-                """
-            }
-        }
-        failure {
-            script {
-                echo 'Pipeline failed. Sending Slack notification...'
-                sh """
-                curl -X POST -H 'Content-Type: application/json' \
-                --data '{"text": "Failed deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. Check the build details: ${env.BUILD_URL}"}' \
-                ${SLACK_WEBHOOK_URL}
-                """
+                sh '''
+                    curl -X POST -H "Content-Type: application/json" \
+                    --data '{"text": "Simple test message"}' \
+                    https://hooks.slack.com/services/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
+                '''
             }
         }
     }
+
 
 }
