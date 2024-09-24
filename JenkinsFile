@@ -80,6 +80,7 @@ pipeline {
         SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
         BUILD_URL = "${env.BUILD_URL}"
         RENDER_URL = "https://gallery-wg33.onrender.com" 
+        SLACK_CHANNEL="#emmanuel_ip1"
         
     }
 
