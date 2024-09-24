@@ -154,9 +154,7 @@ pipeline {
         success {
             script {
                 sh '''
-                    curl -X POST -H "Content-Type: application/json" \
-                    --data '{"text": "Simple test message"}' \
-                    https://hooks.slack.com/services/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
+                    curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
                 '''
             }
         }
