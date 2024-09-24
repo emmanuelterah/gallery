@@ -133,17 +133,14 @@ pipeline {
     post {
         success {
             script {
-                echo 'Pipeline successful. Sending Slack notification...'
-                sh """
-                curl -X POST -H 'Content-Type: application/json; charset=utf-8' \
-                -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
-                --data '{
-                    "channel": "${SLACK_CHANNEL}",
-                    "text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${BUILD_URL}"
-                }' https://slack.com/api/chat.postMessage
-                """
+                    echo 'Pipeline successful. Sending Slack notification...'
+                    sh """
+                    curl -X POST -H 'Content-Type: application/json' \
+                    --data '{
+                        "channel": "${SLACK_CHANNEL}",
+                        "text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${BUILD_URL}"
+                    }' ${SLACK_WEBHOOK_URL}
+                    """
+                }
             }
         }
-    }
-
-}
