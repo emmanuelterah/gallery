@@ -1,12 +1,12 @@
 pipeline {
     agent any
     tools {
-        nodejs 'nodejs'  // Ensure this name matches your Global Tool Configuration
+        nodejs 'nodejs'
     }
     environment {
         DEPLOY_HOOK_URL = 'https://api.render.com/deploy/srv-cronan56l47c73fqc4gg?key=ZXodTKEAAbo'
-        RENDER_URL = 'https://gallery-wg33.onrender.com' // Replace with your actual site URL on Render
-        SLACK_CHANNEL = '#emmanuel_ip1' // Replace with your actual channel name
+        RENDER_URL = 'https://gallery-wg33.onrender.com' 
+        SLACK_CHANNEL = '#emmanuel_ip1' 
         SLACK_BOT_TOKEN = credentials('slack-bot-token')
     }
 
