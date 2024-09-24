@@ -78,10 +78,8 @@ pipeline {
     environment {
         DEPLOY_HOOK_URL = 'https://api.render.com/deploy/srv-cronan56l47c73fqc4gg?key=ZXodTKEAAbo' 
         SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-        BUILD_URL = "${env.BUILD_URL}"
         RENDER_URL = "https://gallery-wg33.onrender.com" 
         SLACK_CHANNEL="#emmanuel_ip1"
-        
     }
 
     stages {
@@ -133,14 +131,25 @@ pipeline {
     post {
         success {
             script {
-                    echo 'Pipeline successful. Sending Slack notification...'
-                    sh """
-                    curl -X POST -H 'Content-Type: application/json' \
-                    --data '{
-                        "channel": "${SLACK_CHANNEL}",
-                        "text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${BUILD_URL}"
-                    }' ${SLACK_WEBHOOK_URL}
-                    """
-                }
+                echo 'Pipeline successful. Sending Slack notification...'
+                sh """
+                curl -X POST -H 'Content-Type: application/json' \
+                --data '{
+                    "text": "Successful deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. View the site at ${RENDER_URL}. Build details: ${env.BUILD_URL}"
+                }' ${SLACK_WEBHOOK_URL}
+                """
             }
         }
+        failure {
+            script {
+                echo 'Pipeline failed. Sending Slack notification...'
+                sh """
+                curl -X POST -H 'Content-Type: application/json' \
+                --data '{
+                    "text": "Failed deploy of ${env.JOB_NAME} #${env.BUILD_NUMBER}. Check the build details: ${env.BUILD_URL}"
+                }' ${SLACK_WEBHOOK_URL}
+                """
+            }
+        }
+    }
+}
