@@ -91,6 +91,7 @@ pipeline {
         DEPLOY_HOOK_URL = 'https://api.render.com/deploy/srv-cronan56l47c73fqc4gg?key=ZXodTKEAAbo'
         RENDER_URL = 'https://gallery-wg33.onrender.com' // Replace with your actual site URL on Render
         SLACK_CHANNEL = '#emmanuel_ip1' // Replace with your actual channel name
+        SLACK_BOT_TOKEN = credentials('slack-bot-token')
     }
 
     stages {
